@@ -314,6 +314,7 @@ canvas{
     border: none;
     cursor: pointer;
     font-weight: 600;
+    text-decoration: none; /* ensure no underline on buttons rendered as links */
 }
 
 /* Make Dashboard button match the pill-style Login button */
@@ -327,6 +328,7 @@ canvas{
     box-shadow: 0 8px 28px rgba(0,0,0,0.32);
     transition: transform 160ms ease, box-shadow 160ms ease;
     min-height: 40px;
+    text-decoration: none; /* explicitly prevent underline */
 }
 #nav-actions .dashboard-btn:hover{ transform: translateY(-2px); box-shadow: 0 20px 44px rgba(0,0,0,0.36); }
 #nav-actions .dashboard-btn:active{ transform: translateY(0); }
