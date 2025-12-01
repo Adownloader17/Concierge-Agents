@@ -1,3 +1,274 @@
+<!-- ===================================================================== -->
+<!--                           PROJECT BANNER                               -->
+<!-- ===================================================================== -->
+<p align="center">
+	<img src="https://i.imgur.com/lCqFZ8M.jpeg" width="100%" alt="ChronoKen Banner">
+</p>
+
+<h1 align="center">⏳⚡ ChronoKen — AI Study & Productivity Agent</h1>
+
+<p align="center">
+	<i>Your personal AI that organizes your day, builds your study plan, manages tasks, and syncs everything with Google Calendar.</i>
+</p>
+
+<p align="center">
+	<img src="https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge" />
+	<img src="https://img.shields.io/badge/Made%20With-Love❤️-blueviolet?style=for-the-badge" />
+	<img src="https://img.shields.io/badge/PRs-Welcome-orange?style=for-the-badge" />
+</p>
+
+---
+
+<!-- ===================================================================== -->
+# 📌 Table of Contents
+<!-- ===================================================================== -->
+
+- [✨ Features](#-features)
+- [🧠 Tech Stack](#-tech-stack)
+- [📁 Project Structure](#-project-structure)
+- [🔧 Installation](#-installation)
+- [🔑 Environment Variables](#-environment-variables)
+- [🔐 Google OAuth Setup](#-google-oauth-setup)
+- [🚀 Running the App](#-running-the-app)
+- [📅 Google Calendar Sync](#-google-calendar-sync)
+- [💬 Ken AI Chat](#-ken-ai-chat)
+- [🏗️ CLI Agent](#️-cli-agent)
+- [🖼️ Screenshots](#️-screenshots)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+
+---
+
+# ✨ Features
+
+### **🧠 AI Agent (Ken)**
+- Natural language understanding  
+- Create tasks using text  
+- Generate personalized study plans  
+- Real-time chat using WebSockets  
+- Plan in 3–7 days with hours  
+
+### **📅 Google Calendar Integration**
+- Secure OAuth 2.0 login  
+- Automatically create study events  
+- Daily sync support  
+- Add tasks → Google Calendar instantly  
+
+### **📊 Dashboard**
+- Missions manager  
+- Notes → convert to tasks  
+- Timeline view  
+- Focus Timer (Pomodoro)  
+- Analytics overview  
+- Floating chat with Ken  
+
+### **🖥️ CLI Mode**
+- Same AI engine  
+- Create tasks, list tasks, generate plans  
+- Great for terminal users  
+
+---
+
+# 🧠 Tech Stack
+
+## **Backend**
+| Technology | Purpose |
+|-----------|---------|
+| 🐍 **Python 3** | Core backend |
+| ⚙️ **Flask** | Web server + API |
+| 🔌 **WebSockets** | Real-time AI chat |
+| 🔐 **Google OAuth 2.0** | Login + Calendar access |
+| 📅 **Google Calendar API** | Sync events |
+| 🤖 **Google AI Studio (Gemini API)** | AI reasoning & planning |
+| 🧠 **OpenAI API** (optional) | Alternative AI model |
+| 🗄️ **SQLite** | Local database |
+| 🔑 **dotenv** | Environment variables |
+
+## **Frontend**
+| Tech | Purpose |
+|------|---------|
+| 🟧 **JavaScript (ES6)** | Logic, WebSocket client, UI |
+| 🎨 **CSS3** | Styling |
+| 🧱 **HTML5** | UI structure |
+| 🪟 **Modals + Floating UI** | Ken chat, Profile editor, Timetable |
+
+## **Tools**
+- 🟥 Streamlit (optional UI)
+- 🟦 Git & GitHub
+- 🧪 VS Code
+
+---
+
+## 📁 Project Structure
+
+High-level overview:
+
+- `app.py` — Flask server and API endpoints (calendar OAuth, sync endpoints)
+- `web/` — static frontend (`dashboard.html`, `dashboard.js`, `dashboard.css`, auth pages)
+- `data/chronoken.db` — SQLite storage for users and tasks
+- `agent.py` / `tools.py` — agent logic and helper functions
+- `requirements.txt` — Python dependencies
+- `.env.template` — environment variable template
+
+---
+
+## 🔧 Installation
+
+1. Create and activate a virtual environment (project root):
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+2. Install dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+
+3. Copy `.env.template` to `.env` and fill the values (API keys, client ids, SECRET_KEY).
+
+---
+
+## 🔑 Environment Variables
+
+Key variables (use `.env.template` as a starting point):
+
+- `GOOGLE_API_KEY` — API key for Google Generative Language API (if used)
+- `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` — OAuth client credentials (or place `client_secret.json` in project root)
+- `GOOGLE_OAUTH_REDIRECT` — OAuth callback (default: `http://127.0.0.1:8000/api/calendar/oauth2callback`)
+- `OPENAI_API_KEY` — optional fallback
+- `SECRET_KEY` — Flask session secret
+- `DATABASE_URL` — SQLite path (default: `sqlite:///data/chronoken.db`)
+
+---
+
+## 🔐 Google OAuth Setup
+
+1. In Google Cloud Console create an OAuth 2.0 Client ID (Web application) and add the redirect URI:
+
+```
+http://127.0.0.1:8000/api/calendar/oauth2callback
+```
+
+2. Download `client_secret.json` and place it at the project root, or set `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` in `.env`.
+3. If the consent screen is in Testing, add your Google account as a Test User.
+
+---
+
+## 🚀 Running the App
+
+```powershell
+.venv\Scripts\Activate.ps1
+python app.py
+```
+
+Open `http://127.0.0.1:8000/` to access the dashboard UI.
+
+---
+
+## 📅 Google Calendar Sync
+
+- Click `Sync Calendar` in the dashboard to launch the OAuth popup.
+- After granting access the app will persist short-lived credentials (stored in the SQLite `users.calendar_tokens`) to refresh tokens for the user.
+
+---
+
+## 💬 Ken AI Chat
+
+- Summon Ken from the dashboard to chat and generate plans.
+- The agent uses configured model keys (`GOOGLE_API_KEY` or `OPENAI_API_KEY`) to call the LLM.
+
+---
+
+## 🏗️ CLI Agent
+
+- Run `python main.py` for a small CLI interface to create/list tasks and generate plans.
+
+---
+
+## 🤝 Contributing
+
+- PRs welcome. Please open issues for bugs or feature requests.
+
+---
+
+## 📜 License
+
+- MIT (replace as appropriate)
+
+## Prerequisites
+
+- Python 3.10+ (3.11 recommended)
+- Git
+- A Google Cloud project with the Google Calendar API and Generative Language API enabled (if you plan to use both features)
+
+## Quick setup (development)
+1. Create and activate a virtual environment in the project root:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+2. Install Python dependencies:
+
+```powershell
+pip install -r requirements.txt
+```
+3. Copy `.env.template` to `.env` and fill in your keys and values.
+
+4. (Google Calendar OAuth) Create OAuth client credentials in Google Cloud Console and download `client_secret.json` to the project root. Make sure the OAuth redirect URI includes:
+
+```
+http://127.0.0.1:8000/api/calendar/oauth2callback
+```
+Add any test users on the OAuth consent screen if the app is in Testing.
+
+5. Start the server from the project root:
+
+```powershell
+.venv\Scripts\Activate.ps1
+python app.py
+```
+Open `http://127.0.0.1:8000/` in your browser to view the dashboard.
+
+---
+
+## Environment variables (.env)
+Use the provided `.env.template` as a starting point. Important variables include:
+
+- `GOOGLE_API_KEY` — API key for Google Generative Language API (if used)
+- `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` — optional; if not provided, the app will try to load `client_secret.json` from the project root
+- `GOOGLE_OAUTH_REDIRECT` — callback URL (default: `http://127.0.0.1:8000/api/calendar/oauth2callback`)
+- `OPENAI_API_KEY` — optional; included if you want to use OpenAI fallbacks
+- `SECRET_KEY` — Flask session secret (set to a random string in production)
+- `DATABASE_URL` — optional DB path (default: `sqlite:///data/chronoken.db`)
+
+Do NOT commit `.env` to source control.
+
+---
+
+## Google setup notes
+- Enable the **Google Calendar API** and the **Generative Language API** (if you use the LLM features).
+- For Calendar OAuth during development, set the redirect URI to the callback path in the app (`/api/calendar/oauth2callback`) and add any test users to the OAuth consent screen.
+- Put `client_secret.json` (OAuth credentials) at the project root, or set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in `.env`.
+
+If you see `API key not valid` from the Generative Language API: check that the `GOOGLE_API_KEY` belongs to the same project where the API is enabled and verify API restrictions (key restrictions may block access).
+
+---
+
+## Running & development tips
+- Run the server: `python app.py` from the project root.
+- The web UI is served from `web/` (static files). The dashboard front-end calls backend endpoints like `/api/calendar/oauth_start` and `/api/calendar/sync-today`.
+- The app persists simple user/task data in `data/chronoken.db` (SQLite).
+
+---
+
+## Troubleshooting
+- Missing Python packages: ensure your venv is active and run `pip install -r requirements.txt`.
+- OAuth errors (401/invalid_client or 403/access_denied): verify `client_secret.json`, `GOOGLE_CLIENT_ID`, redirect URIs, and add your test account to the OAuth consent screen if in Testing.
+- Generative API key errors: ensure the Generative Language API is enabled for the project and the API key has the correct restrictions (or none for quick local testing).
 # Concierge-Agents
 Capstone
 
@@ -131,5 +402,5 @@ Notes about the included UI
 - Verify `.env` contains `GOOGLE_API_KEY` and optional `MODEL_NAME`.
 - If the model request fails, run `list_models_lowlevel.py` and set a supported `MODEL_NAME`.
 
-If you'd like, I can also add a `requirements.txt` or make the README more detailed for contributors.
+
 
