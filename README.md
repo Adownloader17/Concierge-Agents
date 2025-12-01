@@ -2,7 +2,7 @@
 <!--                           PROJECT BANNER                               -->
 <!-- ===================================================================== -->
 <p align="center">
-	<img src="https://i.imgur.com/lCqFZ8M.jpeg" width="100%" alt="ChronoKen Banner">
+	<img src="web/Img/main Home page.png" width="100%" alt="ChronoKen Banner">
 </p>
 
 <h1 align="center">⏳⚡ ChronoKen — AI Study & Productivity Agent</h1>
